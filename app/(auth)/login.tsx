@@ -1,52 +1,48 @@
-import { Link, router } from 'expo-router';
+
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useAuth } from '../../providers/AuthContext';
-
-export default function LoginScreen() {
-  const { signIn } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = () => {
-    // Minimal fake sign-in
-    signIn({ email });
-    router.replace('/home');
-  };
-
+import { Image, KeyboardAvoidingView, Pressable, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] =useState("")
+  const router = useRouter();
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log In</Text>
-      </TouchableOpacity>
-      <View style={styles.footer}>
-        <Text>New here? </Text>
-        <Link href="/register">Create account</Link>
+   <SafeAreaView style={{flex:1, alignItems: 'center' , backgroundColor: 'white'}}>
+    <Image source={require('../../assets/images/logo.png')} style={{width: 150, height: 100}}/>
+   <KeyboardAvoidingView>
+    <View style={{alignItems: 'center'}}>
+     <Text style={{fontSize: 17, fontWeight: "bold", marginTop: 10, color: '#041E42'}}>Login In to your Account</Text>
+    </View>
+    <View style={{marginTop: 70}}>
+      <View style={{flexDirection: 'row', alignItems: 'center', borderRadius: 5, paddingVertical: 5, backgroundColor: '#D0D0D0', marginTop: 30}}>
+        <MaterialIcons name='mail' size={24} color='#041E42' style={{marginLeft:8, color: 'gray'}}/>
+        <TextInput placeholder="Enter your Email" style={{color: 'gray', marginVertical: 5 , width: 300, fontSize:email ? 16 : 16}} value={email} onChangeText={(text) => setEmail(text)}/>
       </View>
-    </SafeAreaView>
-  );
-}
+    </View>
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 24, backgroundColor: '#fff' },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 16 },
-  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 12, marginBottom: 12 },
-  button: { backgroundColor: '#111827', padding: 14, borderRadius: 8, alignItems: 'center', marginTop: 4 },
-  buttonText: { color: '#fff', fontWeight: '700' },
-  footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 16 }
-});
+    <View style={{marginTop: 10}}>
+    <View style={{flexDirection: 'row', alignItems: 'center', borderRadius: 5, paddingVertical: 5, backgroundColor: '#D0D0D0', marginTop: 30}}>
+        <MaterialIcons name='lock' size={24} color='#041E42' style={{marginLeft:8, color: 'gray'}}/>
+        <TextInput placeholder="Enter your Email" style={{color: 'gray', marginVertical: 5 , width: 300, fontSize:password ? 16 : 16}} value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
+      </View>
+    </View>
+
+    <View style={{marginTop: 12, flexDirection: 'row', alignItems: 'center' , justifyContent: 'space-between'}}>
+      <Text>Keep me logged In</Text>
+      <Text style={{color: "#007FFF", fontWeight: 500}}>Forget Password ? </Text>
+    </View>
+
+    <View style={{marginTop: 80}}/>
+    <Pressable style={{width: 200, backgroundColor: "#FEBE10", borderRadius: 6, marginLeft: 'auto', marginRight: 'auto', padding: 10}}> 
+          <Text style={{textAlign: 'center', color: "#fff" , fontSize: 16, fontWeight: 'bold'}}>Login</Text>
+    </Pressable>
+    
+    <Pressable style={{marginTop: 15}} onPress={() => router.push('/register')}>
+      <Text style={{textAlign: 'center', color: 'gray', fontSize: 16}}>Don&apos;t have an account? Sign Up</Text>
+    </Pressable>
+   </KeyboardAvoidingView>
+   </SafeAreaView>
+  )
+}
