@@ -49,7 +49,7 @@ export default function register() {
     </Pressable>
     
     <Pressable style={{marginTop: 15}} onPress={() => router.push('/login')}>
-      <Text style={{textAlign: 'center', color: 'gray', fontSize: 16}}>Don't have an account? Sign Up</Text>
+      <Text style={{textAlign: 'center', color: 'gray', fontSize: 16}}>Already have an account? Sign in</Text>
     </Pressable>
    </KeyboardAvoidingView>
    </SafeAreaView>

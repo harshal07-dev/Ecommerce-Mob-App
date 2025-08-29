@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -7,7 +8,7 @@ const colors = require("colors");
 
 const app = express();
 
-const PORT = 8000;
+const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
 app.use(cors());
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 const jwt = require("jsonwebtoken");
 
 mongoose
-  .connect("mongodb+srv://Harshal:commerceapp@cluster0.ys1aqhy.mongodb.net/")
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log(`Connected to MongoDB`.green.bold);
   })
